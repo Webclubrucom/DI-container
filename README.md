@@ -1,5 +1,7 @@
 <h2>Использование DI контейнера:</h2>
+
 Интерфейс
+
 <pre>
 interface WowInterface
 {
@@ -7,9 +9,9 @@ interface WowInterface
 }
 </pre>
 
-
 Классы, имплементирующие интерфейс
 
+<pre>
 class BadClass implements WowInterface
 {
     public function getWow(int $wow): int
@@ -17,7 +19,9 @@ class BadClass implements WowInterface
         return 100 + $wow;
     }
 }
+</pre>
 
+<pre>
 class BestClass implements WowInterface
 {
     private BadInterface $wow;
@@ -29,9 +33,11 @@ class BestClass implements WowInterface
         return $wow;
     }
 }
+</pre>
 
 Класс, у которого в зависимости интерфейс
 
+<pre>
 class RealityService
 {
     private WowInterface $reality;
@@ -44,12 +50,15 @@ class RealityService
         echo $this->reality->getWow($wow);
     }
 }
+</pre>
 
 Реализация зависимостей
 
+<pre>
 $di = new DI();
 $itemReality = $di->get(
     RealityService::class, [
         WowInterface::class => BadClass::class
     ]);
 $itemReality->getReality(500);
+</pre>
