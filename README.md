@@ -1,6 +1,6 @@
 <h2>Использование DI контейнера:</h2>
 Интерфейс
-<code>
+<code style="width:100%;">
 interface WowInterface
 {
     public function getWow(int $wow);
