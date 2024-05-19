@@ -24,10 +24,6 @@ class BadClass implements WowInterface
 <pre>
 class BestClass implements WowInterface
 {
-    private BadInterface $wow;
-    public function __construct(BadInterface $wow) {
-        $this->wow = $wow;
-    }
     public function getWow(int $wow): int
     {
         return $wow;
