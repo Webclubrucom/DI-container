@@ -1,14 +1,14 @@
 <h2>Использование DI контейнера:</h2>
-
-Интерфейс
-
+<p>Интерфейс</p>
+<code>
 interface WowInterface
 {
     public function getWow(int $wow);
 }
+</code>
 
-Классы, имплементирующие интерфейс
-
+<p>Классы, имплементирующие интерфейс</p>
+<code>
 class BadClass implements WowInterface
 {
     public function getWow(int $wow): int
@@ -16,7 +16,8 @@ class BadClass implements WowInterface
         return 100 + $wow;
     }
 }
-
+</code>
+<code>
 class BestClass implements WowInterface
 {
 
@@ -30,9 +31,9 @@ class BestClass implements WowInterface
         return $wow;
     }
 }
-
-Класс, у которого в зависимости интерфейс
-
+</code>
+<p>Класс, у которого в зависимости интерфейс</p>
+<code>
 class RealityService
 {
     private WowInterface $reality;
@@ -47,13 +48,14 @@ class RealityService
         echo $this->reality->getWow($wow);
     }
 }
-
-Реализация зависимостей
-
+</code>
+<p>Реализация зависимостей</p>
+<code>
 $di = new DI();
 $itemReality = $di->get(
     RealityService::class, [
         WowInterface::class => BadClass::class
     ]);
+    </code>
 
 $itemReality->getReality(500);
