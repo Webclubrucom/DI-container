@@ -1,11 +1,11 @@
 <h2>Использование DI контейнера:</h2>
 Интерфейс
-<code style="display:block">
+<pre>
 interface WowInterface
 {
     public function getWow(int $wow);
 }
-</code>
+</pre>
 
 
 Классы, имплементирующие интерфейс
