@@ -1,10 +1,13 @@
 <h2>Использование DI контейнера:</h2>
 <p>Интерфейс</p>
+
 interface WowInterface
 {
     public function getWow(int $wow);
 }
+
 <p>Классы, имплементирующие интерфейс</p>
+
 class BadClass implements WowInterface
 {
     public function getWow(int $wow): int
@@ -13,11 +16,10 @@ class BadClass implements WowInterface
     }
 }
 
+
 class BestClass implements WowInterface
 {
-
     private BadInterface $wow;
-
     public function __construct(BadInterface $wow) {
         $this->wow = $wow;
     }
@@ -32,12 +34,10 @@ class BestClass implements WowInterface
 class RealityService
 {
     private WowInterface $reality;
-
     public function __construct(WowInterface $reality)
     {
         $this->reality = $reality;
     }
-
     public function getReality(int $wow): void
     {
         echo $this->reality->getWow($wow);
