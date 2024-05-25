@@ -9,7 +9,7 @@ interface WowInterface
 }
 </pre>
 
-Классы, имплементирующие интерфейс
+<b>Классы, имплементирующие интерфейс</b>
 
 <pre>
 class BadClass implements WowInterface
@@ -31,7 +31,7 @@ class BestClass implements WowInterface
 }
 </pre>
 
-Класс, у которого в зависимости интерфейс
+<b>Класс, у которого в зависимости интерфейс</b>
 
 <pre>
 class RealityService
@@ -48,7 +48,7 @@ class RealityService
 }
 </pre>
 
-Реализация зависимостей
+<b>Реализация зависимостей</b>
 
 <pre>
 $di = new DI();
