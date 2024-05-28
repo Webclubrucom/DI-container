@@ -9,15 +9,15 @@ use ReflectionException;
 use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionUnionType;
-use system\DI\Exception\DIException;
+use system\DI\Exception\ContainerException;
 
-class DI implements DIInterface
+class Container implements ContainerInterface
 {
     private array $entries = [];
 
     /**
      * @throws ReflectionException
-     * @throws DIException
+     * @throws ContainerException
      */
 
     public function get(string $id, array $parameters = []): object
@@ -46,7 +46,7 @@ class DI implements DIInterface
 
     /**
      * @throws ReflectionException
-     * @throws DIException
+     * @throws ContainerException
      */
     public function resolve(string $id):mixed
     {
@@ -54,11 +54,11 @@ class DI implements DIInterface
         try {
             $reflectionClass = new ReflectionClass($id);
         } catch(ReflectionException $e) {
-            throw new DIException($e->getMessage(), $e->getCode(), $e);
+            throw new ContainerException($e->getMessage(), $e->getCode(), $e);
         }
 
         if (! $reflectionClass->isInstantiable()) {
-            throw new DIException('Класс "' . $id . '" не может быть создан в виде зависимости');
+            throw new ContainerException('Класс "' . $id . '" не может быть создан в виде зависимости');
         }
 
         // 2. Проверяем, имеется ли у класса конструктор
@@ -79,20 +79,20 @@ class DI implements DIInterface
         $dependencies = array_map(
 
         /**
-         * @throws DIException|ReflectionException
+         * @throws ContainerException|ReflectionException
          */
             function (ReflectionParameter $param) use ($id) {
                 $name = $param->getName();
                 $type = $param->getType();
 
                 if (! $type) {
-                    throw new DIException(
+                    throw new ContainerException(
                         'Не удалось добавить класс "' . $id . '" в виде зависимости, потому что у параметра "' . $name . '" отсутствует подсказка по типу'
                     );
                 }
 
                 if ($type instanceof ReflectionUnionType) {
-                    throw new DIException(
+                    throw new ContainerException(
                         'Не удалось добавить класс "' . $id . '" в виде зависимости, потому что параметр "' . $name . '" не является классом'
                     );
                 }
@@ -101,7 +101,7 @@ class DI implements DIInterface
                     return $this->get($type->getName());
                 }
 
-                throw new DIException(
+                throw new ContainerException(
                     'Не удалось добавить класс "' . $id . '" в виде зависимости из-за недопустимого параметра "' . $name . '"'
                 );
             },
